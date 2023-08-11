@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>IcecatLive dev hey</title>
+
+    <style>
+      .checkbox-container {
+        display: inline-block;
+        margin: 2px;
+        padding: 2px;
+        border: 1px solid black;
+        background: aliceblue;
+        border-radius: 6px;
+      }
+
+      .checkbox-container label {
+        user-select: none;
+      }
+
+      .header.danger {
+        color: red;
+      }
+      .header {
+        font-family: sans-serif;
+      }
+      .root-container {
+        display: flex;
+        width: 800px;
+      }
+      .root-container * {
+        font-family: sans-serif;
+      }
+      .col {
+        width: 50%;
+      }
+      .row {
+        display: flex;
+        margin: 10px 0;
+        padding: 0 20px;
+        text-align: left;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .root-container button {
+        width: 200px;
+        padding: 4px 8px;
+        border: 1px solid transparent;
+        color: #fff;
+        background-color: #3f5498;
+        border-radius: 6px;
+        outline: none;
+        cursor: pointer;
+      }
+      .root-container button:hover {
+        border: 1px solid #3f5498;
+        color: #3f5498;
+        background: #fff;
+      }
+      .root-container input[type='text'] {
+        position: relative;
+        display: flex;
+        width: 150px;
+        padding: 5px;
+        border: solid 1px #cfd8dd;
+        background-color: #fff;
+        box-sizing: border-box;
+        align-items: center;
+        font-size: 14px;
+      }
+
+      @media (max-width: 758px) {
+        body {
+          margin: 0;
+        }
+        .row {
+          flex-direction: column;
+          align-items: start;
+        }
+        .col {
+          width: auto;
+        }
+        .root-container {
+          padding: 10px;
+          max-width: 100%;
+          flex-direction: column;
+        }
+        .root-container button {
+          max-width: 100%;
+        }
+      }
+    </style>
+
+    <script>
+      document.write(
+        "<script type='text/javascript' src='/js/live-current-2.js?v=" + Date.now() + "'><\/script>"
+      );
+    </script>
+  </head>
+  <body>
+    <h1 class="header danger">HTML Request</h1>
+    <h2 class="header">Demo</h2>
+    <div class="root-container">
+      <div class="col">
+        <label class="row">
+          shopname: <input id="shopname" size="15" type="text" value="openIcecat-live" />
+        </label>
+        <label class="row"
+          >product_id: <input id="selectedProd" size="20" type="text" value="92787817"
+        /></label>
+        <label class="row">langCode: <input id="langCode" size="4" type="text" value="en" /></label>
+        <label class="row"
+          >UserReference: <input id="userreference" size="4" type="text" value=""
+        /></label>
+        <label class="row"
+          >ProviderId: <input id="ProviderId" size="4" type="text" value=""
+        /></label>
+        <label class="row"
+          >videoAgeGatingDisabled: <input id="videoAgeGatingDisabled" type="checkbox"
+        /></label>
+      </div>
+
+      <div class="col">
+        <div class="row">
+          <button onclick="getRTB()">rtb</button>
+        </div>
+        <div class="row">
+          <button onclick="getData()">Press for load selected</button>
+        </div>
+        <div class="row">
+          <button onclick="getVideos()">Press for load videos</button>
+        </div>
+        <div class="row">
+          <button onclick="get3d()">Press for load 3DTours</button>
+        </div>
+        <div class="row">
+          <button onclick="getMedia()">Press for load unLinkedVideos</button>
+        </div>
+      </div>
+    </div>
+
+    <h1 class="header danger">Separate-call</h1>
+    <h2 class="header">Demo</h2>
+    <div class="root-container">
+      <div class="col">
+        <label class="row">
+          <span>shopname:</span>
+          <input id="shopnameSC" size="15" type="text" value="openicecat-live" />
+        </label>
+        <label class="row">
+          <span> product_id: </span>
+          <input id="selectedProdSC" size="20" type="text" value="18253015" />
+        </label>
+        <label class="row">
+          <span> UserReference: </span>
+          <input id="UserreferenceSC" size="4" type="text" value="" />
+        </label>
+        <label class="row">
+          <span> ProviderId: </span>
+          <input id="ProviderIdSC" size="4" type="text" value="" />
+        </label>
+        <label class="row">
+          <span> langCode: </span>
+          <input id="langCodeSC" size="4" type="text" value="en" />
+        </label>
+        <label class="row">
+          <span> timestamp: </span>
+          <input id="timestampSC" size="10" type="text" value="" />
+        </label>
+        <label class="row">
+          <span> signature: </span>
+          <input id="signatureSC" size="20" type="text" value="" />
+        </label>
+
+        <label class="row"
+          >videoAgeGatingDisabled: <input id="videoAgeGatingDisabledSC" type="checkbox"
+        /></label>
+      </div>
+      <div class="col">
+        <div class="checkbox-container">
+          <input id="titleSC" type="checkbox" />
+          <label for="titleSC">Title</label>
+        </div>
+        <div class="checkbox-container">
+          <input id="gallerySC" type="checkbox" />
+          <label for="gallerySC">Gallery</label>
+        </div>
+        <div class="checkbox-container">
+          <input id="featurelogosSC" type="checkbox" />
+          <label for="featurelogosSC">Featurelogos</label>
+        </div>
+        <div class="checkbox-container">
+          <input id="featuregroupsSC" type="checkbox" />
+          <label for="featuregroupsSC">Specifications</label>
+        </div>
+        <div class="checkbox-container">
+          <input id="reasonstobuySC" type="checkbox" />
+          <label for="reasonstobuySC">Reasonstobuy</label>
+        </div>
+        <div class="checkbox-container">
+          <input id="reviewsSC" type="checkbox" />
+          <label for="reviewsSC">Reviews</label>
+        </div>
+        <div class="checkbox-container">
+          <input id="marketingtextSC" type="checkbox" />
+          <label for="marketingtextSC">Marketingtext</label>
+        </div>
+        <div class="checkbox-container">
+          <input id="videosSC" type="checkbox" />
+          <label for="videosSC">Videos</label>
+        </div>
+        <div class="checkbox-container">
+          <input id="toursSC3d" type="checkbox" />
+          <label for="toursSC3d">Tours3d</label>
+        </div>
+        <div class="checkbox-container">
+          <input id="manualsSC" type="checkbox" />
+          <label for="manualsSC">Manuals</label>
+        </div>
+        <div class="checkbox-container">
+          <input id="essentialinfoSC" type="checkbox" />
+          <label for="essentialinfoSC">Essentialinfo</label>
+        </div>
+        <div class="checkbox-container">
+          <input id="bulletpointsSC" type="checkbox" />
+          <label for="bulletpointsSC">BulletPoints</label>
+        </div>
+        <div class="checkbox-container">
+          <input checked id="productstorySC" type="checkbox" />
+          <label for="productstorySC">The Story</label>
+        </div>
+        <div>
+          <button onclick="processSeparateCall()">Press for load selected</button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      style="
+        margin: 20px;
+        border: 1px dashed black;
+        display: inline-block;
+        padding: 20px;
+        background: linear-gradient(to top, #fefcea, #f1da36);
+        border-radius: 11px;
+      "
+    >
+      <button onclick="IcecatLive.applyCustomCSS('/custom.css')">Use custom css</button>
+      <button onclick="IcecatLive.applyDefaultCSS()">Use default css</button>
+    </div>
+
+    <div id="liveContainer"></div>
+
+    <div class="separate-call-containers">
+      <div id="titleSC_container"></div>
+      <div id="gallerySC_container"></div>
+      <div id="featurelogosSC_container"></div>
+      <div id="essentialinfoSC_container"></div>
+      <div id="marketingtextSC_container"></div>
+      <div id="manualsSC_container"></div>
+      <div id="reasonstobuySC_container"></div>
+      <div id="toursSC3d_container"></div>
+      <div id="videosSC_container"></div>
+      <div id="videosSC_containercurrentVideo"></div>
+      <div id="featuregroupsSC_container"></div>
+      <div id="reviewsSC_container"></div>
+      <div id="bulletpointsSC_container"></div>
+      <div id="productstorySC_container"></div>
+    </div>
+
+    <script>
+      const getLanguage = () => document.querySelector('#langCode').value;
+      const getAgeGatingDisabled = () => document.querySelector('#videoAgeGatingDisabled').checked;
+      const getUserReference = () =>
+        document.querySelector('#userreference').value
+          ? document.querySelector('#userreference').value
+          : undefined;
+      const getProviderId = () =>
+        document.querySelector('#ProviderId').value
+          ? document.querySelector('#ProviderId').value
+          : undefined;
+
+      function processSeparateCall() {
+        const checkboxList = document.querySelectorAll('.checkbox-container input[type=checkbox]');
+        const containerParams = [...checkboxList]
+          .filter((item) => item.checked)
+          .reduce((prev, item) => {
+            const key = item.id.replace('SC', '');
+            return {
+              ...prev,
+              [key]: `#${item.id}_container`,
+            };
+          }, {});
+
+        const hasSeparateCallContainers = Object.keys(containerParams).length;
+        const lang = document.getElementById('langCodeSC').value;
+        const providerId = document.querySelector('#ProviderIdSC').value;
+        const userReference = document.querySelector('#UserreferenceSC').value;
+        const videoAgeGatingDisabled = document.querySelector('#videoAgeGatingDisabledSC').checked;
+        IcecatLive.getDatasheet(
+          hasSeparateCallContainers ? containerParams : '#liveContainer',
+          {
+            shopname: document.querySelector('#shopnameSC').value,
+            icecat_id: document.querySelector('#selectedProdSC').value,
+            signature: document.querySelector('#signatureSC').value,
+            timestamp: document.querySelector('#timestampSC').value,
+            videoAgeGatingDisabled: videoAgeGatingDisabled ? videoAgeGatingDisabled : undefined,
+            ProviderId: providerId ? providerId : undefined,
+            UserReference: userReference ? userReference : undefined,
+          },
+          lang
+        );
+      }
+
+      function getMedia() {
+        IcecatLive.getUnlinkedVideos(
+          '#liveContainer',
+          {
+            shopname: document.querySelector('#shopname').value,
+            UserReference: document.querySelector('#userreference').value,
+            ProviderId: document.querySelector('#ProviderId').value,
+            videoAgeGatingDisabled: getAgeGatingDisabled(),
+          },
+          getLanguage()
+        );
+      }
+
+      function get3d() {
+        IcecatLive.get3DTours(
+          '#liveContainer',
+          {
+            shopname: document.querySelector('#shopname').value,
+            icecat_id: document.querySelector('#selectedProd').value,
+          },
+          getLanguage()
+        );
+      }
+
+      function getRTB() {
+        IcecatLive.getRTB(
+          '#liveContainer',
+          {
+            shopname: document.querySelector('#shopname').value,
+            icecat_id: document.querySelector('#selectedProd').value,
+          },
+          getLanguage()
+        );
+      }
+
+      function getData() {
+        IcecatLive.getDatasheet(
+          '#liveContainer',
+          {
+            shopname: document.querySelector('#shopname').value,
+            icecat_id: document.querySelector('#selectedProd').value,
+            UserReference: getUserReference(),
+            ProviderId: getProviderId(),
+            videoAgeGatingDisabled: getAgeGatingDisabled(),
+          },
+          getLanguage()
+        );
+      }
+
+      function getVideos() {
+        IcecatLive.getVideos(
+          '#liveContainer',
+          {
+            shopname: document.querySelector('#shopname').value,
+            icecat_id: document.querySelector('#selectedProd').value,
+            UserReference: getUserReference(),
+            ProviderId: getProviderId(),
+            videoAgeGatingDisabled: getAgeGatingDisabled(),
+          },
+          getLanguage()
+        );
+      }
+    </script>
+  </body>
+</html>
